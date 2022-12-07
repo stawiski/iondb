@@ -25,7 +25,7 @@ jobs:
         run: |
           cd ./build/bin
           for name in ./test_*; do
-              docker run -v `pwd`:/app -w /app local ./$name
+              docker run -v `pwd`:/app -w /app local -c "$name"
               if [ $? -ne 0 ]; then
                   echo "Build failed on $name"
                   exit 1
