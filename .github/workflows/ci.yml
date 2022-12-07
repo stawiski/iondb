@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-firmware:
+  build-all:
     runs-on: ubuntu-latest
     steps:
       - name: Clone This Repo
@@ -18,9 +18,9 @@ jobs:
       - name: Build Docker
         run: docker build -t local .
       - name: Run CMake
-        run: docker run -v `pwd`:/app -w /app local cmake -S . -B build
+        run: docker run -v `pwd`:/app -w /app local -c "cmake -S . -B build"
       - name: Build all
-        run: docker run -v `pwd`:/app -w /app local cmake --build build
+        run: docker run -v `pwd`:/app -w /app local -c "cmake --build build"
       - name: Run tests
         run: |
           cd ./build/bin
